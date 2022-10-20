@@ -1,13 +1,14 @@
 {
   "name": "inventory-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.ts",
   "author": "Gustavo Franco <gustavofrancojp@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon",
     "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/server.js"
+    "prisma": "npx prisma generate",
+    "start": "npm run prisma && npm run build && node build/server.js"
   },
   "dependencies": {
     "@prisma/client": "4.4.0",
