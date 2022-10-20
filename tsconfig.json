@@ -2,11 +2,13 @@
   "compilerOptions": {
     "target": "es2021",
     "lib": [
+      "es6",
       "esnext"
     ],
     "module": "commonjs",
     "sourceMap": true,
-    "outDir": "dist",
+    "outDir": "build",
+    "rootDir": "src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
