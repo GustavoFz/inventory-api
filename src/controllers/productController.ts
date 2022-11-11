@@ -5,12 +5,13 @@ const prisma = new PrismaClient()
 
 async function createProduct(req: Request, res: Response) {
     try {
-        const { name, subgroupId } = req.body
+        const { name, subgroupId, brandId } = req.body
 
         const product = await prisma.product.create({
             data: {
                 name,
                 subgroupId,
+                brandId
             }
         })
 
@@ -23,7 +24,7 @@ async function createProduct(req: Request, res: Response) {
 
 async function updateProduct(req: Request, res: Response) {
     try {
-        const { id, name, subgroupId } = req.body
+        const { id, name, subgroupId, brandId } = req.body
 
         const product = await prisma.product.update({
             where: {
@@ -31,7 +32,8 @@ async function updateProduct(req: Request, res: Response) {
             },
             data: {
                 name,
-                subgroupId
+                subgroupId,
+                brandId
             }
         })
 
@@ -45,6 +47,21 @@ async function updateProduct(req: Request, res: Response) {
 async function getAllProducts(req: Request, res: Response) {
     try {
         const product = await prisma.product.findMany()
+
+        return res.status(200).json(product)
+
+    } catch (err) {
+        return res.status(400).json({ error: err })
+    }
+}
+
+async function getAllProductsWithSubgroup(req: Request, res: Response) {
+    try {
+        const product = await prisma.product.findMany({
+            include: {
+                subgroup: true
+            }
+        })
 
         return res.status(200).json(product)
 
@@ -106,5 +123,6 @@ export {
     getAllProducts,
     getOneProduct,
     deleteProduct,
-    getProductsByGroup
+    getProductsByGroup,
+    getAllProductsWithSubgroup,
 }

@@ -13,13 +13,25 @@ datasource db {
 model Product {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   name        String
+  brand       String?
   subgroup    Subgroup      @relation(fields: [subgroupId], references: [id])
   subgroupId  String        @db.ObjectId
   Transaction Transaction[]
+  Brand       Brand?        @relation(fields: [brandId], references: [id])
+  brandId     String?       @db.ObjectId
 
   created_at DateTime @default(now())
 
   @@map("products")
+}
+
+model Brand {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  product    Product[]
+  created_at DateTime  @default(now())
+
+  @@map("brands")
 }
 
 model Group {
