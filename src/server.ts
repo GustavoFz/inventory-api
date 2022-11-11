@@ -2,6 +2,7 @@
 import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
+import brandRouter from './routes/BrandRouter';
 import groupRouter from './routes/groupRouter';
 import productRouter from './routes/productRoutes';
 import subgroupRouter from './routes/subgroupRouter';
@@ -18,5 +19,6 @@ app.use(transactionRouter)
 app.use(productRouter)
 app.use(groupRouter)
 app.use(subgroupRouter)
+app.use(brandRouter)
 
 app.listen(3001, () => console.log("Server is running on port 3001"));
