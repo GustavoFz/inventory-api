@@ -3,8 +3,8 @@ import {
     createProduct,
     deleteProduct,
     getAllProducts,
+    getAllProductsWithSubgroup,
     getOneProduct,
-    getProductsByGroup,
     updateProduct
 } from "../controllers/productController";
 
@@ -22,7 +22,7 @@ productRouter
     .delete(deleteProduct)
 
 productRouter
-    .route('/productsByGroup/:id')
-    .get(getProductsByGroup)
+    .route('/productWithSubgroup')
+    .get(getAllProductsWithSubgroup)
 
 export default productRouter;

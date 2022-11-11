@@ -14,7 +14,7 @@ groupRouter
     .get(getAllGroups)
 
 groupRouter
-    .route('/group/id')
+    .route('/group/:id')
     .delete(deleteGroup)
 
 export default groupRouter;

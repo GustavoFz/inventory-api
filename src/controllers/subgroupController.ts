@@ -84,10 +84,27 @@ async function deleteOne(req: Request, res: Response) {
     }
 }
 
+async function getSubgroupByGroup(req: Request, res: Response) {
+    try {
+        const groupId = req.params.id
+        const subgroup = await prisma.subgroup.findMany({
+            where: {
+                groupId
+            }
+        })
+
+        return res.status(200).json(subgroup)
+
+    } catch (err) {
+        return res.status(400).json({ error: err })
+    }
+}
+
 export {
     create,
     update,
     getAll,
     getOne,
     deleteOne,
+    getSubgroupByGroup,
 }
