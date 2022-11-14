@@ -7,6 +7,7 @@ import {
     getOneProduct,
     updateProduct
 } from "../controllers/productController";
+import authMiddleware from "../middlewares/auth";
 
 const productRouter = Router();
 
@@ -15,6 +16,7 @@ productRouter
     .post(createProduct)
     .get(getAllProducts)
 
+productRouter.use(authMiddleware)
 productRouter
     .route('/product/:id')
     .put(updateProduct)
