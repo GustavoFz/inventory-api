@@ -1,6 +1,6 @@
 //import { User } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const autConfig = process.env.SECRET as string;
 
@@ -23,8 +23,9 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
     jwt.verify(token, autConfig, (err, decoded) => {
         if (err) return res.status(401).json({ error: 'Token invalid' })
 
-        //req.user = (<any>decoded).id;
-        req.user = decoded.id;
+        //fix interface decoded
+        req.user = (<any>decoded).id;
+        //req.user = decoded.id;
         return next();
     });
 }
