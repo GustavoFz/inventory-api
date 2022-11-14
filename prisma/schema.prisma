@@ -13,8 +13,9 @@ datasource db {
 model User {
   id           String @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  email        String
+  email        String @unique
   passwordHash String
+  role         String
 }
 
 model Product {
@@ -74,4 +75,14 @@ model Transaction {
   created_at DateTime @default(now())
 
   @@map("transactions")
+}
+
+model RefreshToken {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  token String
+  email String
+
+  created_at DateTime @default(now())
+
+  @@map("refreshTokens")
 }
