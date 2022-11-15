@@ -1,81 +1,42 @@
-import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import { checkPassword } from '../services/authService';
+import { login, validateUser } from '../services/authService';
+import { refreshToken } from '../services/tokenService';
 
-const prisma = new PrismaClient()
-
-const secret = process.env.SECRET as string
-
-async function login(req: Request, res: Response) {
+async function loginAuth(req: Request, res: Response) {
     const { email, password } = req.body;
 
     try {
-        const user = await prisma.user.findUnique({
-            where: {
-                email
-            }
-        })
 
-        if (!user || !checkPassword(user, password)) {
+        const user = await validateUser(email, password)
+
+        if (user === null) {
             return res.status(401).json({ error: "User or password incorrect" });
         }
 
-        const payload = {
-            id: user.id,
-            email: user.email
-        }
+        const token = await login(user)
 
-        const token = jwt.sign(payload, secret, {
-            expiresIn: "1d"
-        })
+        return res.status(200).json({ token })
 
-        await prisma.refreshToken.create({
-            data: {
-                email,
-                token
-            }
-        })
-
-        return res.status(200).json({
-            user: {
-                id: user.id,
-                email: user.email,
-            },
-            token
-        })
     } catch (err) {
         return res.status(400).json({ error: err });
     }
 }
 
-async function refreshToken(req: Request, res: Response) {
-    const { oldToken, email } = req.body
+async function refreshAuth(req: Request, res: Response) {
+    const { oldToken } = req.body
 
-    const refreshToken = await prisma.refreshToken.findFirst({
-        where: {
-            token: oldToken,
-            email: email
-        }
-    })
+    try {
+        const newToken = await refreshToken(oldToken)
 
-    if (!refreshToken) {
-        return res.status(400).json({ error: "token invalid" })
+        return res.status(200).json({ newToken })
+    } catch (err) {
+        return res.status(400).json({ error: err });
     }
 
-    await prisma.refreshToken.update({
-        where: {
-            id: refreshToken.id
-        },
-        data: {
-            token: oldToken
-        }
 
-    })
 }
 
-
-
 export {
-    login
+    loginAuth,
+    refreshAuth,
 };

@@ -4,7 +4,7 @@ import express from 'express';
 import morgan from 'morgan';
 
 import authMiddleware from './middlewares/authMiddleware';
-import sessionRouter from './routes/authRouter';
+import authRouter from './routes/authRouter';
 import brandRouter from './routes/brandRouter';
 import groupRouter from './routes/groupRouter';
 import productRouter from './routes/productRoutes';
@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Public routes
-app.use(sessionRouter)
+app.use(authRouter)
 
 // Middlewares
 app.use(authMiddleware)

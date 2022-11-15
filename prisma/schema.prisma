@@ -77,12 +77,12 @@ model Transaction {
   @@map("transactions")
 }
 
-model RefreshToken {
+model Token {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   token String
   email String
 
   created_at DateTime @default(now())
 
-  @@map("refreshTokens")
+  @@map("tokens")
 }
