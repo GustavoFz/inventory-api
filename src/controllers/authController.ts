@@ -15,7 +15,13 @@ async function loginAuth(req: Request, res: Response) {
 
         const token = await login(user)
 
-        return res.status(200).json({ token })
+        return res.status(200).json({
+            token: token,
+            user: {
+                email: user.email,
+                name: user.name,
+            }
+        })
 
     } catch (err) {
         return res.status(400).json({ error: err });

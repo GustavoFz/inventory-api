@@ -50,8 +50,32 @@ async function getOneUser(req: Request, res: Response) {
     }
 }
 
+async function getUserByToken(req: Request, res: Response) {
+    try {
+        const token = req.params.token;
+
+        const userToken = await prisma.token.findFirst({
+            where: { token }
+        })
+        if (userToken) {
+            const user = await prisma.user.findUnique({
+                where: { email: userToken.email }
+            })
+            if (user) {
+                const { passwordHash, ...result } = user;
+                return res.status(200).json(result);
+            }
+        }
+        return res.status(400).json({ error: 'Token does not exist' });
+
+    } catch (err) {
+        return res.status(400).json({ error: err })
+    }
+}
+
 export {
     createUser,
     getAllUsers,
-    getOneUser
+    getOneUser,
+    getUserByToken,
 };
