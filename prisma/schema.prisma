@@ -22,8 +22,8 @@ model Product {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   brand       String?
-  subgroup    Subgroup      @relation(fields: [subgroupId], references: [id])
-  subgroupId  String        @db.ObjectId
+  subgroup    Subgroup?     @relation(fields: [subgroupId], references: [id])
+  subgroupId  String?       @db.ObjectId
   Transaction Transaction[]
   Brand       Brand?        @relation(fields: [brandId], references: [id])
   brandId     String?       @db.ObjectId
