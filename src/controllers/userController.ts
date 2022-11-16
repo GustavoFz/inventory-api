@@ -26,6 +26,21 @@ async function createUser(req: Request, res: Response) {
     }
 }
 
+async function deleteUser(req: Request, res: Response) {
+
+    const { id } = req.params
+
+    try {
+        await prisma.user.delete({
+            where: { id }
+        })
+        return res.status(200).json({ message: "User deleted" })
+
+    } catch (err) {
+
+    }
+}
+
 async function getAllUsers(req: Request, res: Response) {
     try {
         const user = await prisma.user.findMany()
