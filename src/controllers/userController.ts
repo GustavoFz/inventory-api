@@ -52,7 +52,7 @@ async function getAllUsers(req: Request, res: Response) {
 
 async function getOneUser(req: Request, res: Response) {
     try {
-        const id = req.params.id;
+        const { id } = req.params
 
         const user = await prisma.user.findUnique({
             where: { id }
@@ -67,7 +67,7 @@ async function getOneUser(req: Request, res: Response) {
 
 async function getUserByToken(req: Request, res: Response) {
     try {
-        const token = req.params.token;
+        const { token } = req.params
 
         const userToken = await prisma.token.findFirst({
             where: { token }

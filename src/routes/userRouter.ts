@@ -1,12 +1,14 @@
 import { Router } from "express";
 import { createUser, getAllUsers, getOneUser, getUserByToken } from "../controllers/userController";
+import { validateSchema } from "../middlewares/validationRequestMiddleware";
+import { addUserSchema } from "../validations/userValidationScheme";
 
 const userRouter = Router();
 
 
 userRouter
     .route('/user')
-    .post(createUser)
+    .post(addUserSchema, validateSchema, createUser)
     .get(getAllUsers)
 
 userRouter
