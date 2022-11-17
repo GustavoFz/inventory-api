@@ -5,13 +5,14 @@ const prisma = new PrismaClient()
 
 async function createProduct(req: Request, res: Response) {
     try {
-        const { name, subgroupId, brandId } = req.body
+        const { name, subgroupId, brandId, groupId } = req.body
 
         const product = await prisma.product.create({
             data: {
                 name,
                 subgroupId,
-                brandId
+                brandId,
+                groupId
             }
         })
 
@@ -24,7 +25,7 @@ async function createProduct(req: Request, res: Response) {
 
 async function updateProduct(req: Request, res: Response) {
     try {
-        const { id, name, subgroupId, brandId } = req.body
+        const { id, name, subgroupId, brandId, groupId } = req.body
 
         const product = await prisma.product.update({
             where: {
@@ -33,7 +34,8 @@ async function updateProduct(req: Request, res: Response) {
             data: {
                 name,
                 subgroupId,
-                brandId
+                brandId,
+                groupId
             }
         })
 

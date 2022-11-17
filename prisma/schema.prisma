@@ -11,17 +11,19 @@ datasource db {
 }
 
 model User {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  email        String @unique
+  email        String  @unique
   passwordHash String
-  role         String
+  role         String?
 }
 
 model Product {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   brand       String?
+  group       Group?        @relation(fields: [groupId], references: [id])
+  groupId     String?       @db.ObjectId
   subgroup    Subgroup?     @relation(fields: [subgroupId], references: [id])
   subgroupId  String?       @db.ObjectId
   Transaction Transaction[]
@@ -47,7 +49,8 @@ model Group {
   name     String
   Subgroup Subgroup[]
 
-  created_at DateTime @default(now())
+  created_at DateTime  @default(now())
+  Product    Product[]
 
   @@map("groups")
 }
