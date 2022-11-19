@@ -3,7 +3,7 @@ import {
     createGroup,
     deleteGroup,
     getAllGroups
-} from "../controllers/groupController";
+} from "./groupController";
 
 const groupRouter = Router()
 

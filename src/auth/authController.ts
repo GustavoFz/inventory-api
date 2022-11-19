@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { login, validateUser } from '../services/authService';
-import { refreshToken } from '../services/tokenService';
+import { refreshToken } from '../token/tokenService';
+import { login, validateUser } from './authService';
 
 async function loginAuth(req: Request, res: Response) {
     const { email, password } = req.body;

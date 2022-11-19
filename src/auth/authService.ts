@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
-import { saveToken } from "./tokenService";
+import { saveToken } from "../token/tokenService";
 
 const prisma = new PrismaClient()
 

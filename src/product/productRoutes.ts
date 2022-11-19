@@ -6,7 +6,7 @@ import {
     getAllProductsWithSubgroup,
     getOneProduct,
     updateProduct
-} from "../controllers/productController";
+} from "./productController";
 
 const productRouter = Router();
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { create, deleteOne, getAll, getSubgroupByGroup } from "../controllers/subgroupController";
+import { create, deleteOne, getAll, getSubgroupByGroup } from "./subgroupController";
 
 const subgroupRouter = Router()
 

@@ -3,14 +3,14 @@ import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 
+import authRouter from './auth/authRouter';
+import brandRouter from './brand/brandRouter';
+import groupRouter from './group/groupRouter';
 import authMiddleware from './middlewares/authMiddleware';
-import authRouter from './routes/authRouter';
-import brandRouter from './routes/brandRouter';
-import groupRouter from './routes/groupRouter';
-import productRouter from './routes/productRoutes';
-import subgroupRouter from './routes/subgroupRouter';
-import transactionRouter from './routes/transactionRouter';
-import userRouter from './routes/userRouter';
+import productRouter from './product/productRoutes';
+import subgroupRouter from './subgroup/subgroupRouter';
+import transactionRouter from './transaction/transactionRouter';
+import userRouter from './user/userRouter';
 
 const app = express();
 

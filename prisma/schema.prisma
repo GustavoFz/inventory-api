@@ -19,27 +19,43 @@ model User {
 }
 
 model Product {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  brand       String?
-  group       Group?        @relation(fields: [groupId], references: [id])
-  groupId     String?       @db.ObjectId
-  subgroup    Subgroup?     @relation(fields: [subgroupId], references: [id])
-  subgroupId  String?       @db.ObjectId
-  Transaction Transaction[]
-  Brand       Brand?        @relation(fields: [brandId], references: [id])
-  brandId     String?       @db.ObjectId
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  brandId             String        @db.ObjectId
+  groupId             String        @db.ObjectId
+  subgroupId          String?       @db.ObjectId
+  barCode             String?       @unique
+  controlSerialNumber Boolean
+  transaction         Transaction[]
+  Item                Item[]
+
+  brand    Brand     @relation(fields: [brandId], references: [id])
+  group    Group     @relation(fields: [groupId], references: [id])
+  subgroup Subgroup? @relation(fields: [subgroupId], references: [id])
 
   created_at DateTime @default(now())
 
   @@map("products")
 }
 
+model Item {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  productId    String  @db.ObjectId
+  serialNumber String
+  iSactive     Boolean
+
+  product Product @relation(fields: [productId], references: [id])
+
+  created_at  DateTime      @default(now())
+  Transaction Transaction[]
+}
+
 model Brand {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  product    Product[]
-  created_at DateTime  @default(now())
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  product Product[]
+
+  created_at DateTime @default(now())
 
   @@map("brands")
 }
@@ -47,21 +63,21 @@ model Brand {
 model Group {
   id       String     @id @default(auto()) @map("_id") @db.ObjectId
   name     String
-  Subgroup Subgroup[]
+  subgroup Subgroup[]
+  product  Product[]
 
-  created_at DateTime  @default(now())
-  Product    Product[]
+  created_at DateTime @default(now())
 
   @@map("groups")
 }
 
 model Subgroup {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  groupId String    @db.ObjectId
+  product Product[]
 
-  Group   Group?    @relation(fields: [groupId], references: [id])
-  groupId String?   @db.ObjectId
-  Product Product[]
+  group Group @relation(fields: [groupId], references: [id])
 
   created_at DateTime @default(now())
 
@@ -70,10 +86,13 @@ model Subgroup {
 
 model Transaction {
   id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  product   Product @relation(fields: [productId], references: [id])
   productId String  @db.ObjectId
+  itemId    String? @db.ObjectId
   value     Int
   type      String
+
+  product Product @relation(fields: [productId], references: [id])
+  item    Item?   @relation(fields: [itemId], references: [id])
 
   created_at DateTime @default(now())
 

@@ -4,7 +4,7 @@ import {
     getAllTransactionsInput,
     getAllTransactionsOutput,
     getBalance, getTransactionsById
-} from "../controllers/transactionController";
+} from "./transactionController";
 
 const transactionRouter = Router();
 

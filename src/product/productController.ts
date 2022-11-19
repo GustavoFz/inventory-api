@@ -5,14 +5,16 @@ const prisma = new PrismaClient()
 
 async function createProduct(req: Request, res: Response) {
     try {
-        const { name, subgroupId, brandId, groupId } = req.body
+        const { name, subgroupId, brandId, groupId, barCode, controlSerialNumber } = req.body
 
         const product = await prisma.product.create({
             data: {
                 name,
                 subgroupId,
                 brandId,
-                groupId
+                groupId,
+                barCode,
+                controlSerialNumber
             }
         })
 

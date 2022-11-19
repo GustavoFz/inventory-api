@@ -4,7 +4,7 @@ import {
     deleteOne,
     getAll,
     getBradByProduct
-} from "../controllers/brandController";
+} from "./brandController";
 
 const brandRouter = Router()
 

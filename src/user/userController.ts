@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { createPasswordHash } from "../services/authService";
+import { createPasswordHash } from "../auth/authService";
 
 const prisma = new PrismaClient()
 
@@ -37,7 +37,7 @@ async function deleteUser(req: Request, res: Response) {
         return res.status(200).json({ message: "User deleted" })
 
     } catch (err) {
-
+        return res.status(400).json({ error: err })
     }
 }
 
@@ -93,4 +93,5 @@ export {
     getAllUsers,
     getOneUser,
     getUserByToken,
+    deleteUser
 };
