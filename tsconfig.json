@@ -5,6 +5,7 @@
       "es6",
       "esnext"
     ],
+    "moduleResolution": "node",
     "module": "commonjs",
     "sourceMap": true,
     "outDir": "build",
@@ -12,9 +13,27 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noImplicitAny": true,
+    "alwaysStrict": true,
+    //"noImplicitReturns": true,
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "typeRoots": [
       "./src/@types"
-    ]
-  }
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./test/**/*.ts",
+  ],
+  "exclude": [
+    "./node_modules/*",
+    "dist"
+  ]
 }

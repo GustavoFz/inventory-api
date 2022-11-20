@@ -1,12 +1,14 @@
 require('dotenv').config();
 import cors from 'cors';
 import express from 'express';
+import 'express-async-errors';
 import morgan from 'morgan';
 
 import authRouter from './auth/authRouter';
 import brandRouter from './brand/brandRouter';
 import groupRouter from './group/groupRouter';
 import authMiddleware from './middlewares/authMiddleware';
+import errorMiddleware from './middlewares/errorMiddleware';
 import productRouter from './product/productRoutes';
 import subgroupRouter from './subgroup/subgroupRouter';
 import transactionRouter from './transaction/transactionRouter';
@@ -32,5 +34,7 @@ app.use(productRouter)
 app.use(groupRouter)
 app.use(subgroupRouter)
 app.use(brandRouter)
+
+app.use(errorMiddleware)
 
 app.listen(3001, () => console.log("Server is running on port 3001"));

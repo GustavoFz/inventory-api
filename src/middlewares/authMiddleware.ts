@@ -18,7 +18,7 @@ function authMiddleware(req: Request, res: Response, next: NextFunction) {
     const [scheme, token] = parts;
 
     if (!/^Bearer$/i.test(scheme))
-        return res.status(401).json({ error: 'Token malformatted' })
+        return res.status(401).json({ error: 'Token malformed' })
 
     jwt.verify(token, autConfig, (err, decoded) => {
         if (err) return res.status(401).json({ error: 'Token invalid' })

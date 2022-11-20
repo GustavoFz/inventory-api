@@ -5,7 +5,6 @@ import { addUserSchema } from "./userValidationScheme";
 
 const userRouter = Router();
 
-
 userRouter
     .route('/user')
     .post(addUserSchema, validateSchema, createUser)

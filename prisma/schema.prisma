@@ -27,7 +27,7 @@ model Product {
   barCode             String?       @unique
   controlSerialNumber Boolean
   transaction         Transaction[]
-  Item                Item[]
+  item                Item[]
 
   brand    Brand     @relation(fields: [brandId], references: [id])
   group    Group     @relation(fields: [groupId], references: [id])
@@ -42,7 +42,7 @@ model Item {
   id           String  @id @default(auto()) @map("_id") @db.ObjectId
   productId    String  @db.ObjectId
   serialNumber String
-  iSactive     Boolean
+  iSactive     Boolean @default(true)
 
   product Product @relation(fields: [productId], references: [id])
 

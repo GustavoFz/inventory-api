@@ -4,42 +4,28 @@ import { login, validateUser } from './authService';
 
 async function loginAuth(req: Request, res: Response) {
     const { email, password } = req.body;
+    const user = await validateUser(email, password)
 
-    try {
-
-        const user = await validateUser(email, password)
-
-        if (user === null) {
-            return res.status(401).json({ error: "User or password incorrect" });
-        }
-
-        const token = await login(user)
-
-        return res.status(200).json({
-            token: token,
-            user: {
-                email: user.email,
-                name: user.name,
-            }
-        })
-
-    } catch (err) {
-        return res.status(400).json({ error: err });
+    if (user === null) {
+        return res.status(401).json({ error: "User or password incorrect" });
     }
+
+    const token = await login(user)
+
+    return res.status(200).json({
+        token: token,
+        user: {
+            email: user.email,
+            name: user.name,
+        }
+    })
 }
 
 async function refreshAuth(req: Request, res: Response) {
     const { oldToken } = req.body
+    const newToken = await refreshToken(oldToken)
 
-    try {
-        const newToken = await refreshToken(oldToken)
-
-        return res.status(200).json({ newToken })
-    } catch (err) {
-        return res.status(400).json({ error: err });
-    }
-
-
+    return res.status(200).json({ newToken })
 }
 
 export {
