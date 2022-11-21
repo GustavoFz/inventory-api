@@ -21,6 +21,23 @@ async function createUser(req: Request, res: Response) {
     return res.status(200).json({ user })
 }
 
+async function updateUser(req: Request, res: Response) {
+
+    const { id } = req.params
+    const { name, email } = req.body
+
+
+    const user = await prisma.user.update({
+        where: { id },
+        data: {
+            name,
+            email,
+        }
+    })
+
+    return res.status(200).json({ user })
+}
+
 async function deleteUser(req: Request, res: Response) {
 
     const { id } = req.params
@@ -68,5 +85,6 @@ export {
     getAllUsers,
     getOneUser,
     getUserByToken,
-    deleteUser
+    deleteUser,
+    updateUser
 };

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateSchema } from "../middlewares/validationRequestMiddleware";
-import { createUser, getAllUsers, getOneUser, getUserByToken } from "./userController";
+import { createUser, getAllUsers, getOneUser, getUserByToken, updateUser } from "./userController";
 import { addUserSchema } from "./userValidationScheme";
 
 const userRouter = Router();
@@ -12,6 +12,7 @@ userRouter
 
 userRouter
     .route('/user/:id')
+    .put(updateUser)
     .get(getOneUser)
 
 userRouter

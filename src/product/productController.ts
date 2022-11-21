@@ -41,7 +41,8 @@ async function createProduct(req: Request, res: Response) {
 }
 
 async function updateProduct(req: Request, res: Response) {
-    const { id, name, subgroupId, brandId, groupId, barCode } = req.body
+    const { id } = req.params
+    const { name, subgroupId, brandId, groupId, barCode } = req.body
 
     const data = {
         name,
