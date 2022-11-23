@@ -61,7 +61,17 @@ async function updateProduct(req: Request, res: Response) {
 }
 
 async function getAllProducts(req: Request, res: Response) {
-    const product = await prisma.product.findMany()
+    const product = await prisma.product.findMany({
+        include: {
+            item: true,
+        }
+    })
+
+    console.log(product)
+
+    if (product === null) {
+        return res.status(404).json({})
+    }
     return res.status(200).json(product)
 }
 
