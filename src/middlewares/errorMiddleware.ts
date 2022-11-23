@@ -6,6 +6,8 @@ function errorMiddleware(error: Error & Partial<ApiError>, req: Request, res: Re
     const statusCode = error.statusCode ?? 500
     const message = error.statusCode ? error.message : "Internal Server Error"
 
+    console.log(error.message)
+
     return res.status(statusCode).json({ statusCode: statusCode, message: message })
 }
 
